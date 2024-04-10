@@ -10,9 +10,9 @@ func init() {
 	dbCfg := setting.MySQLConfig{
 		Host:         "127.0.0.1",
 		User:         "root",
-		Password:     "root1234",
+		Password:     "root",
 		DB:           "bluebell",
-		Port:         13306,
+		Port:         3306,
 		MaxOpenConns: 10,
 		MaxIdleConns: 10,
 	}
@@ -24,7 +24,7 @@ func init() {
 
 func TestCreatePost(t *testing.T) {
 	post := models.Post{
-		ID:          10,
+		ID:          19,
 		AuthorID:    123,
 		CommunityID: 1,
 		Title:       "test",
