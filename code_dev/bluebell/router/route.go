@@ -32,6 +32,9 @@ func SetupRouter(mode string) *gin.Engine {
 	})
 
 	r.GET("/ping", func(c *gin.Context) {
+		// 判断token是否有效
+		c.Request.Header.Get("Authorization")
+
 		c.String(http.StatusOK, "pong")
 	})
 

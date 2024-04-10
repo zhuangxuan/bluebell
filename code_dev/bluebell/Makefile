@@ -15,7 +15,7 @@ gotool:
 	go vet ./
 
 clean:
-	@if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
+	if [ -f ./bin/${BINARY} ] ; then rm ./bin/${BINARY} ; fi
 
 help:
 	@echo "make - 格式化 Go 代码, 并编译生成二进制文件"
