@@ -25,7 +25,7 @@ func GenToken(userID int64, username string) (string, error) {
 	// 创建一个我们自己的声明的数据
 	c := MyClaims{
 		userID,
-		"username", // 自定义字段
+		username, // 自定义字段
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(
 				time.Duration(setting.Conf.AuthConfig.JwtExpire) * time.Hour).Unix(), // 过期时间
