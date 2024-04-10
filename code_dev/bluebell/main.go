@@ -9,7 +9,6 @@ import (
 	"bluebell/router"
 	"bluebell/setting"
 	"fmt"
-	"os"
 )
 
 // @title bluebell项目接口文档
@@ -22,12 +21,13 @@ import (
 // @host 127.0.0.1:8084
 // @BasePath /api/v1
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("need config file.eg: bluebell config.yaml")
-		return
-	}
+	//if len(os.Args) < 2 {
+	//	fmt.Println("need config file.eg: bluebell config.yaml")
+	//	return
+	//}
 	// 加载配置
-	if err := setting.Init(os.Args[1]); err != nil {
+	//if err := setting.Init(os.Args[1]); err != nil {
+	if err := setting.Init(); err != nil {
 		fmt.Printf("load config failed, err:%v\n", err)
 		return
 	}
@@ -57,6 +57,7 @@ func main() {
 	}
 	// 注册路由
 	r := router.SetupRouter(setting.Conf.Mode)
+	fmt.Println("router setup success")
 	err := r.Run(fmt.Sprintf(":%d", setting.Conf.Port))
 	if err != nil {
 		fmt.Printf("run server failed, err:%v\n", err)

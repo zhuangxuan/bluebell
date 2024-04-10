@@ -1,10 +1,9 @@
 package jwt
 
 import (
+	"bluebell/setting"
 	"errors"
 	"time"
-
-	"github.com/spf13/viper"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -29,7 +28,7 @@ func GenToken(userID int64, username string) (string, error) {
 		"username", // 自定义字段
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(
-				time.Duration(viper.GetInt("auth.jwt_expire")) * time.Hour).Unix(), // 过期时间
+				time.Duration(setting.Conf.AuthConfig.JwtExpire) * time.Hour).Unix(), // 过期时间
 			Issuer: "bluebell", // 签发人
 		},
 	}
