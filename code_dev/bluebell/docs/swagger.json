@@ -7,7 +7,6 @@
             "name": "liwenzhou",
             "url": "http://www.liwenzhou.com"
         },
-        "license": {},
         "version": "1.0"
     },
     "host": "127.0.0.1:8084",
@@ -79,12 +78,39 @@
         }
     },
     "definitions": {
+        "controller.ResCode": {
+            "type": "integer",
+            "enum": [
+                1000,
+                1001,
+                1002,
+                1003,
+                1004,
+                1005,
+                1006,
+                1007
+            ],
+            "x-enum-varnames": [
+                "CodeSuccess",
+                "CodeInvalidParam",
+                "CodeUserExist",
+                "CodeUserNotExist",
+                "CodeInvalidPassword",
+                "CodeServerBusy",
+                "CodeNeedLogin",
+                "CodeInvalidToken"
+            ]
+        },
         "controller._ResponsePostList": {
             "type": "object",
             "properties": {
                 "code": {
                     "description": "业务响应状态码",
-                    "type": "integer"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/controller.ResCode"
+                        }
+                    ]
                 },
                 "data": {
                     "description": "数据",
@@ -115,6 +141,14 @@
                     "description": "作者",
                     "type": "string"
                 },
+                "community": {
+                    "description": "嵌入社区信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.CommunityDetail"
+                        }
+                    ]
+                },
                 "community_id": {
                     "description": "社区id",
                     "type": "integer"
@@ -124,16 +158,13 @@
                     "type": "string"
                 },
                 "create_time": {
+                    "description": "帖子创建时间",
                     "type": "string"
                 },
                 "id": {
-                    "type": "integer"
-                },
-                "introduction": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
+                    "description": "帖子id",
+                    "type": "string",
+                    "example": "0"
                 },
                 "status": {
                     "description": "帖子状态",
@@ -149,27 +180,20 @@
                 }
             }
         },
-        "models.ParamPostList": {
+        "models.CommunityDetail": {
             "type": "object",
             "properties": {
-                "community_id": {
-                    "description": "可以为空",
+                "create_time": {
+                    "type": "string"
+                },
+                "id": {
                     "type": "integer"
                 },
-                "order": {
-                    "description": "排序依据",
-                    "type": "string",
-                    "example": "score"
+                "introduction": {
+                    "type": "string"
                 },
-                "page": {
-                    "description": "页码",
-                    "type": "integer",
-                    "example": 1
-                },
-                "size": {
-                    "description": "每页数据量",
-                    "type": "integer",
-                    "example": 10
+                "name": {
+                    "type": "string"
                 }
             }
         }

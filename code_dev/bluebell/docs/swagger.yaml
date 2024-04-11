@@ -3,8 +3,9 @@ definitions:
   controller._ResponsePostList:
     properties:
       code:
+        allOf:
+        - $ref: '#/definitions/controller.ResCode'
         description: 业务响应状态码
-        type: integer
       data:
         description: 数据
         items:
@@ -14,6 +15,26 @@ definitions:
         description: 提示信息
         type: string
     type: object
+  controller.ResCode:
+    enum:
+    - 1000
+    - 1001
+    - 1002
+    - 1003
+    - 1004
+    - 1005
+    - 1006
+    - 1007
+    type: integer
+    x-enum-varnames:
+    - CodeSuccess
+    - CodeInvalidParam
+    - CodeUserExist
+    - CodeUserNotExist
+    - CodeInvalidPassword
+    - CodeServerBusy
+    - CodeNeedLogin
+    - CodeInvalidToken
   models.ApiPostDetail:
     properties:
       author_id:
@@ -22,6 +43,10 @@ definitions:
       author_name:
         description: 作者
         type: string
+      community:
+        allOf:
+        - $ref: '#/definitions/models.CommunityDetail'
+        description: 嵌入社区信息
       community_id:
         description: 社区id
         type: integer
@@ -29,12 +54,11 @@ definitions:
         description: 帖子内容
         type: string
       create_time:
+        description: 帖子创建时间
         type: string
       id:
-        type: integer
-      introduction:
-        type: string
-      name:
+        description: 帖子id
+        example: "0"
         type: string
       status:
         description: 帖子状态
@@ -50,23 +74,16 @@ definitions:
     - content
     - title
     type: object
-  models.ParamPostList:
+  models.CommunityDetail:
     properties:
-      community_id:
-        description: 可以为空
-        type: integer
-      order:
-        description: 排序依据
-        example: score
+      create_time:
         type: string
-      page:
-        description: 页码
-        example: 1
+      id:
         type: integer
-      size:
-        description: 每页数据量
-        example: 10
-        type: integer
+      introduction:
+        type: string
+      name:
+        type: string
     type: object
 host: 127.0.0.1:8084
 info:
@@ -74,7 +91,6 @@ info:
     name: liwenzhou
     url: http://www.liwenzhou.com
   description: Go web开发进阶项目实战课程bluebell
-  license: {}
   title: bluebell项目接口文档
   version: "1.0"
 paths:
