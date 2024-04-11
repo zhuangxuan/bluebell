@@ -47,16 +47,21 @@ func SetupRouter(mode string) *gin.Engine {
 	// 登录
 	v1.POST("/login", controller.LoginHandler)
 
-	// 根据时间或分数获取帖子列表
+	// 根据时间或分数获取帖子列表 按照创建时间或分数的先后顺序
 	v1.GET("/posts2", controller.GetPostListHandler2)
+	// 获取帖子列表
 	v1.GET("/posts", controller.GetPostListHandler)
+
 	v1.GET("/community", controller.CommunityHandler)
+	// 获取帖子详情
 	v1.GET("/community/:id", controller.CommunityDetailHandler)
+
 	v1.GET("/post/:id", controller.GetPostDetailHandler)
 
 	v1.Use(middlewares.JWTAuthMiddleware()) // 应用JWT认证中间件
 
 	{
+		// 创建帖子
 		v1.POST("/post", controller.CreatePostHandler)
 
 		// 投票
